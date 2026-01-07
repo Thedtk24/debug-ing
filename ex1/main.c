@@ -19,37 +19,42 @@ void draw_square(
 // Fonction pour appliquer une convolution avec un laplacien pour la détection de contours
 void apply_laplacian(struct ppm_image *src, struct ppm_image *dest)
 {
-	for (int y = 0; y < src->height; ++y) {
-		for (int x = 0; x < src->width; ++x) {
-			// Calcul de la somme des différences de luminosité autour du pixel
-			int sum_r = -4 * src->px[y * src->width + x].r +
+	for (int y = 1; y < src->height - 1; ++y) {
+		for (int x = 1; x < src->width - 1; ++x) {
+
+			int idx = y * src->width + x;
+
+			int sum_r =
+				-4 * src->px[idx].r +
 				src->px[(y - 1) * src->width + x].r +
 				src->px[(y + 1) * src->width + x].r +
 				src->px[y * src->width + x - 1].r +
 				src->px[y * src->width + x + 1].r;
 
-			int sum_g = -4 * src->px[y * src->width + x].g +
+			int sum_g =
+				-4 * src->px[idx].g +
 				src->px[(y - 1) * src->width + x].g +
 				src->px[(y + 1) * src->width + x].g +
 				src->px[y * src->width + x - 1].g +
 				src->px[y * src->width + x + 1].g;
 
-			int sum_b = -4 * src->px[y * src->width + x].b +
+			int sum_b =
+				-4 * src->px[idx].b +
 				src->px[(y - 1) * src->width + x].b +
 				src->px[(y + 1) * src->width + x].b +
 				src->px[y * src->width + x - 1].b +
 				src->px[y * src->width + x + 1].b;
 
-			// Normalisation des valeurs
-			unsigned char val_r = (unsigned char)NORM(sum_r);
-			unsigned char val_g = (unsigned char)NORM(sum_g);
-			unsigned char val_b = (unsigned char)NORM(sum_b);
-
-			// Assignation du pixel résultat
-			ppm_image_setpixel(dest, x, y, val_r, val_g, val_b);
+			ppm_image_setpixel(
+				dest, x, y,
+				(unsigned char)NORM(sum_r),
+				(unsigned char)NORM(sum_g),
+				(unsigned char)NORM(sum_b)
+			);
 		}
 	}
 }
+
 
 int main()
 {
