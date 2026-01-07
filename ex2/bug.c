@@ -3,22 +3,22 @@
 
 void process_data1(int *data, int size)
 {
-	for (int i = 0; i <= size; ++i) {
+	for (int i = 0; i < size; ++i) {
 		data[i] *= 2;
 	}
 }
 
 void process_data2(int *data, int size)
 {
-	for (int i = 0; i < size + 50; ++i) {
-		data[i] *= 2;
+	for (int i = 0; i < size; ++i) {
+		data[i] *= 3;
 	}
 }
 
 void process_data3(int *data, int size)
 {
-	for (int i = 0; i < size * 1000; ++i) {
-		data[i] *= 2;
+	for (int i = 0; i < size; ++i) {
+		data[i] *= 4;
 	}
 }
 
