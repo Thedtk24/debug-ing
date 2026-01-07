@@ -2,12 +2,20 @@
 
 unsigned long long fibonacci(unsigned long long n)
 {
-	if (n < 0) {
+	if (n < 2)
 		return n;
-	} else {
-		return fibonacci(n - 1) + fibonacci(n - 2);
+
+	unsigned long long a = 0, b = 1, tmp;
+
+	for (unsigned long long i = 2; i <= n; ++i) {
+		tmp = a + b;
+		a = b;
+		b = tmp;
 	}
+
+	return b;
 }
+
 
 int main(void)
 {
